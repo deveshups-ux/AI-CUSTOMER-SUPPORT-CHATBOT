@@ -13,5 +13,6 @@ export async function getSession() {
     return user;
   } catch (error) {
     console.log(error);
+    return null;
   }
 }

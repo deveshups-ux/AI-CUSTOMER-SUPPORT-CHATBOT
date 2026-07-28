@@ -15,7 +15,7 @@ const HomeClient = ({ email }: { email: string }) => {
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
-  });
+  }, []);
 
   const handleLogin = () => {
     window.location.href = "/api/auth/login";
