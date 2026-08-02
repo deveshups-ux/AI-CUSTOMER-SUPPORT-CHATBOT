@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
         { status: 400 },
       );
     }
-    connectDb();
+    await connectDb();
     const setting = await Settings.findOne({ ownerId });
     if (!setting) {
       return NextResponse.json(
@@ -55,15 +55,34 @@ ANSWER
 
     const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-    const response = await ai.models.generateContent({
+    const res = await ai.models.generateContent({
       model: "gemini-3.6-flash",
       contents: prompt,
     });
-    return NextResponse.json(response.text);
+    const response = NextResponse.json({ reply: res.text });
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "POST,OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    return response;
   } catch (error) {
-    return NextResponse.json(
+    const response = NextResponse.json(
       { message: `chat error ${error}` },
       { status: 500 },
     );
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "POST,OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    return response;
   }
 }
+
+export const OPTIONS = async () => {
+  return NextResponse.json(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "POST,OPTIONS",
+      "Access-Control-Allow-Headers": "content-Type",
+    },
+  });
+};
