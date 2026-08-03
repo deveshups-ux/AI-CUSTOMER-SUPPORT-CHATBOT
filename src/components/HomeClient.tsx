@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 const HomeClient = ({ email }: { email: string }) => {
   const firstLetter = email ? email[0].toUpperCase() : "";
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const navigate = useRouter();
 
@@ -21,6 +22,7 @@ const HomeClient = ({ email }: { email: string }) => {
   }, []);
 
   const handleLogin = () => {
+    setLoading(true);
     window.location.href = "/api/auth/login";
   };
 
@@ -96,10 +98,11 @@ const HomeClient = ({ email }: { email: string }) => {
             </div>
           ) : (
             <button
+              disabled={loading}
               onClick={handleLogin}
               className="px-5 py-2 rounded-full bg-black text-white text-sm font-medium hover:bg-zinc-800 transition disabled:opacity-60 flex items-center gap-2"
             >
-              Login
+              {loading ? "Loding..." : "Login"}
             </button>
           )}
         </div>
