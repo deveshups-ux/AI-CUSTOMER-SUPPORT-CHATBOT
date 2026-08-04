@@ -66,7 +66,6 @@ const EmbedClient = ({ ownerId }: { ownerId: string }) => {
             </p>
 
             <div className="rounded-xl border border-zinc-300 bg-white shadow-md overflow-hidden">
-              {/* ब्राउज़र हेडर (लाइन 54-59) */}
               <div className="flex items-center gap-2 px-4 h-9 bg-zinc-100 border-b border-zinc-200">
                 <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
                 <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
@@ -76,11 +75,9 @@ const EmbedClient = ({ ownerId }: { ownerId: string }) => {
                 </span>
               </div>
 
-              {/* ब्राउज़र बॉडी - इसे लाइन 61 पर जोड़ें */}
               <div className="relative h-64 sm:h-72 p-6 text-zinc-400 text-sm">
                 Your website goes here
                 <div className="absolute bottom-24 right-6 w-64 bg-white rounded-xl shadow-xl border border-zinc-200 overflow-hidden">
-                  {/* चैट विंडो हेडर */}
                   <div className="bg-black text-white text-xs px-3 py-2 flex justify-between items-center">
                     <span>Customer Support</span>
                     <span>X</span>
@@ -95,7 +92,6 @@ const EmbedClient = ({ ownerId }: { ownerId: string }) => {
                     </div>
                   </div>
 
-                  {/* चैट इनपुट बार - इसे लाइन 76 पर div बंद होने से पहले जोड़ें */}
                   <div className="p-3 bg-white border-t border-zinc-100 flex items-center gap-2">
                     <div className="w-full bg-zinc-100 text-zinc-400 text-xs px-3 py-2 rounded-lg">
                       Type a message...

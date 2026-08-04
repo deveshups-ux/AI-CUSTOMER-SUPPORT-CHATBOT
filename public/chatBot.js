@@ -117,7 +117,7 @@
       background: from === "user" ? "#000" : "#e5e7eb",
       color: from === "user" ? "#fff" : "#111",
 
-      /* bubble direction polish */
+      
       borderTopRightRadius: from === "user" ? "4px" : "14px",
       borderTopLeftRadius: from === "user" ? "14px" : "4px",
     });
