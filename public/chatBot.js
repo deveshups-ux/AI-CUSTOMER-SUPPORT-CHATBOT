@@ -1,5 +1,5 @@
 (function () {
-  const api_Url = "http://localhost:3000/api/chat";
+  const api_Url = "https://ai-customer-support-chatbot-nu.vercel.app/api/chat";
   const scriptTag = document.currentScript;
   const ownerId = scriptTag.getAttribute("data-owner-id");
   if (!ownerId) {
@@ -117,7 +117,6 @@
       background: from === "user" ? "#000" : "#e5e7eb",
       color: from === "user" ? "#fff" : "#111",
 
-      
       borderTopRightRadius: from === "user" ? "4px" : "14px",
       borderTopLeftRadius: from === "user" ? "14px" : "4px",
     });
