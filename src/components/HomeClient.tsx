@@ -8,8 +8,17 @@ const HomeClient = ({ email }: { email: string }) => {
   const firstLetter = email ? email[0].toUpperCase() : "";
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const popupRef = useRef<HTMLDivElement>(null);
   const navigate = useRouter();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -56,7 +65,11 @@ const HomeClient = ({ email }: { email: string }) => {
         initial={{ y: -50 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="fixed top-0 left-0 w-full z-50 bg-white/70 backdrop-blur-xl border-b border-zinc-200"
+        className={`fixed top-0 left-0 w-full z-50 backdrop-blur-xl border-b transition-all duration-300 ${
+          scrolled
+            ? "bg-white/95 border-zinc-200 shadow-md"
+            : "bg-white/70 border-transparent"
+        }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="text-lg font-semibold tracking-tight">
@@ -102,7 +115,7 @@ const HomeClient = ({ email }: { email: string }) => {
               onClick={handleLogin}
               className="px-5 py-2 rounded-full bg-black text-white text-sm font-medium hover:bg-zinc-800 transition disabled:opacity-60 flex items-center gap-2"
             >
-              {loading ? "Loding..." : "Login"}
+              {loading ? "Loading..." : "Login"}
             </button>
           )}
         </div>
