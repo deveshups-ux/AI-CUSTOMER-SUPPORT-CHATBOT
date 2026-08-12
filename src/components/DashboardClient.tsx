@@ -9,6 +9,7 @@ const DashboardClient = ({ ownerId }: { ownerId: string }) => {
   const [supportEmail, setSupportEmail] = useState("");
   const [knowledge, setKnowledge] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const [saved, setSaved] = useState(false);
   const navigate = useRouter();
 
@@ -22,6 +23,7 @@ const DashboardClient = ({ ownerId }: { ownerId: string }) => {
         businessName,
       });
       setLoading(false);
+      setError(false);
       setSaved(true);
       setTimeout(() => {
         setSaved(false);
@@ -29,7 +31,12 @@ const DashboardClient = ({ ownerId }: { ownerId: string }) => {
       console.log(result.data);
     } catch (error) {
       setLoading(false);
+      setError(true);
+
       console.log(error);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
     }
   };
 
@@ -134,8 +141,16 @@ const DashboardClient = ({ ownerId }: { ownerId: string }) => {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-sm font-medium text-emerald-600"
               >
-                {" "}
                 Setting Saved ✅
+              </motion.span>
+            )}
+            {error && (
+              <motion.span
+                initial={{ opacity: 0, y: 6 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-sm font-medium text-red-600"
+              >
+                Failed to save ❌
               </motion.span>
             )}
           </div>

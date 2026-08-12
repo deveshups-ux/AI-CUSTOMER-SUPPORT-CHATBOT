@@ -37,7 +37,7 @@ const EmbedClient = ({ ownerId }: { ownerId: string }) => {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-4x1 bg-white rounded-2xl shadow-xl p-10"
+          className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-10"
         >
           <h1 className="text-2xl font-semibold mb-2">Embed ChatBot</h1>
           <p className="text-zinc-600 mb-6">
