@@ -6,16 +6,25 @@
     console.log("owner id not found");
     return;
   }
+
+  // --- Read customization attributes (with sane defaults) ---
+  const themeColor = scriptTag.getAttribute("data-color") || "#000000";
+  const position =
+    scriptTag.getAttribute("data-position") === "left" ? "left" : "right";
+  const welcomeMessage =
+    scriptTag.getAttribute("data-welcome-message") || "hi! how can I help you?";
+  const sideKey = position; // "left" | "right"
+
   const button = document.createElement("div");
   button.innerHTML = "💬";
   Object.assign(button.style, {
     position: "fixed",
     bottom: "24px",
-    right: "24px",
+    [sideKey]: "24px",
     width: "56px",
     height: "56px",
     borderRadius: "50%",
-    background: "#000",
+    background: themeColor,
     color: "#fff",
     display: "flex",
     alignItems: "center",
@@ -31,7 +40,7 @@
   Object.assign(box.style, {
     position: "fixed",
     bottom: "90px",
-    right: "24px",
+    [sideKey]: "24px",
     width: "320px",
     height: "420px",
     background: "#fff",
@@ -44,7 +53,7 @@
     fontFamily: "Inter, system-ui, sans-serif",
   });
   box.innerHTML = `<div style="
-        background:#000;
+        background:${themeColor};
         color:#fff;
         padding:12px 14px;
         font-size:14px;
@@ -83,7 +92,7 @@
  <button id="chat-send" style="
             padding:8px 12px;
             border:none;
-            background:#000;
+            background:${themeColor};
             color:#fff;
             border-radius:8px;
             font-size:13px;
@@ -114,7 +123,7 @@
       lineHeight: "1.4",
       marginBottom: "8px",
       alignSelf: from === "user" ? "flex-end" : "flex-start",
-      background: from === "user" ? "#000" : "#e5e7eb",
+      background: from === "user" ? themeColor : "#e5e7eb",
       color: from === "user" ? "#fff" : "#111",
 
       borderTopRightRadius: from === "user" ? "4px" : "14px",
@@ -123,6 +132,10 @@
     messageArea.appendChild(bubble);
     messageArea.scrollTop = messageArea.scrollHeight;
   }
+
+  // Show the welcome message as the first bot message
+  addMessage(welcomeMessage, "ai");
+
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       sendBtn.click();
